@@ -1,3 +1,5 @@
+import os.path
+
 def filenames():
     # returns open file, save to file
     file_in = prompt_entry("Open CSV file: > ")

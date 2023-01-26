@@ -2,8 +2,9 @@ import os.path
 from bs4 import BeautifulSoup
 import urllib.parse
 import requests
+import time
 
-from text_maniupularion import remove_newline_characters
+from text_maniupularion import remove_newline_characters, clean_text
 
 
 def get_part_numbers_from_csv(filename):
@@ -16,10 +17,11 @@ def get_part_numbers_from_csv(filename):
         return None
 
 
-def get_html_from_octopart(search_term):
+def get_html_from_alldatasheet(search_term):
     r = requests.get("https://www.alldatasheet.com/view.jsp?Searchword={}".format(urllib.parse.quote(search_term)))
     if r.status_code != 200:
         raise RuntimeError
+    time.sleep(0.8)
     return r.content
 
 
@@ -38,7 +40,7 @@ def get_part_descriptions(table_obj):
     res = []
     for i in range(0, 3):
         row = get_table_row(table_obj, i)
-        res.append(row.find_all_next("td")[3].get_text().split("\n")[0])
+        res.append(clean_text(row.find_all_next("td")[3].get_text().split("\n")[0]))
     return res
 
 
