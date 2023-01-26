@@ -8,11 +8,26 @@ def remove_newline_characters(string):
     return res
 
 def clean_text(string):
-    res = ""
-    for char in string:
-        if not(char == "\n" or char == "\t" or char == ","):
-            res += char
-    return res
+
+    # remove line breaks, tabs, and NBSPs
+    string = string.replace("\n", "")
+    string = string.replace("\t", "")
+    string = string.replace("\xc2\xa0", " ")
+    string = string.replace("\xa0", " ")
+
+    # remove duplicate spaces
+    space_flag = False
+    res2 = ""
+    for c in string:
+        if c==" ":
+            if not space_flag:
+                res2 += c
+                space_flag = True
+        else:
+            res2 += c
+            space_flag = False
+
+    return res2
 
 def estimated_time_completion(current_num, max_num=None, percent=None, avg_time=1.101):
     # ETC is based on the mean time of delay function

@@ -22,6 +22,8 @@ Example data output:
 
 And so on.
 
+You can comment out a line with `#`.
+
 ## Usage
 Run `main.py`. Enter the following:
 - Path to your TXT or CSV file containing parts list only (one per row): `/Users/foo/partslist.txt`

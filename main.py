@@ -4,8 +4,8 @@ from text_maniupularion import clean_text, print_same_line, estimated_time_compl
 
 if __name__ == "__main__":
     # prompt user for CSV file names- one to read from and one to write to. Can be
-    (file_in, file_out) = filenames()
-
+    # (file_in, file_out) = filenames()
+    file_in, file_out = './examples/input.csv', './examples/output.csv'
     # parse the file to get a list of parts
     print("\nLoading your file...")
     parts = get_part_numbers_from_csv(file_in)

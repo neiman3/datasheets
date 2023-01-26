@@ -10,7 +10,11 @@ from text_maniupularion import remove_newline_characters, clean_text
 def get_part_numbers_from_csv(filename):
     if os.path.exists(filename):
         f = open(filename)
-        res = [remove_newline_characters(line) for line in f]
+        res = []
+        for line in f:
+            if len(line) > 0:
+                if line[0] != '#':
+                    res.append(line)
         f.close()
         return res
     else:
