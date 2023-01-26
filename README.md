@@ -1,6 +1,7 @@
 # datasheets python script
-Import a CSV file or text file of part numbers and find their datasheets and descriptions from [AllDatasheet](https://www.alldatasheet.com).
+This script can import a CSV file or text file of part numbers and find their datasheets and descriptions from [AllDatasheet](https://www.alldatasheet.com).
 
+## Introduction
 This script uses AllDatasheet because it is very easy to scrape.
 
 Don't include any headers in your CSV file. They are added below for clarity. Here is an example data input:
@@ -20,3 +21,9 @@ Example data output:
 | CD4007UBE   | ...                                                                                                            | ...                   | ...                          | ...           |
 
 And so on.
+
+## Usage
+Run `main.py`. Enter the following:
+- Path to your TXT or CSV file containing parts list only (one per row): `/Users/foo/partslist.txt`
+- Folder to save data: `/Users/foo/my_datasheets`
+- Filename: `Inventory.csv`
