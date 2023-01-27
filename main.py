@@ -1,6 +1,6 @@
 from datasheets import *
 from file_prompt import filenames
-from text_maniupularion import *
+from text_manipulation import *
 
 if __name__ == "__main__":
     # prompt user for CSV file names- one to read from and one to write to. Can be

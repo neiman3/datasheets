@@ -4,14 +4,15 @@ import urllib.parse
 import requests
 import time
 
-from text_maniupularion import remove_newline_characters, clean_text
+from text_manipulation import clean_text, remove_ufeff
 
 
 def get_part_numbers_from_csv(filename):
     if os.path.exists(filename):
-        f = open(filename)
+        f = open(filename, 'r')
         res = []
         for line in f:
+            line = remove_ufeff(line)
             if len(line) > 0:
                 if line[0] != '#':
                     res.append(line)

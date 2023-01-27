@@ -81,7 +81,7 @@ def pick_best_description(part_name, list_of_descriptions):
         # Edge case where we have only two options
         if [i for i in descriptions.items()][0][1] < 0.25:
             # they are not similar enough
-            print("Two dissimilar descriptions exist for the part {}:".format(part_name))
+            print_same_line("Two dissimilar descriptions exist for the part {}:".format(part_name))
             print("\t1) {}".format(cleaned_list[0]))
             print("\t2) {}".format(cleaned_list[1]))
             print("\t3) Enter a custom description")
@@ -118,3 +118,6 @@ def find_highest_value(dictionary):
 def compare_two_strings(string_1, string_2):
     return SequenceMatcher(None, string_1, string_2).ratio()
 
+
+def remove_ufeff(line):
+    return "".join([(c if c != '\ufeff' else '') for c in line])
