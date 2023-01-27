@@ -1,6 +1,6 @@
 from datasheets import *
 from file_prompt import filenames
-from text_maniupularion import clean_text, print_same_line, estimated_time_completion
+from text_maniupularion import *
 
 if __name__ == "__main__":
     # prompt user for CSV file names- one to read from and one to write to. Can be
@@ -29,10 +29,13 @@ if __name__ == "__main__":
         url = get_datasheet_link(main_table)
         # Make a CSV formatted line with the format:
         # [part number], [url], [description 1], [description 2], [description 3]
-        res.append(",".join([clean_text(part), url] + descriptions))
+        description = pick_best_description(descriptions)
+        res.append(",".join([clean_text(part), url, description]))
 
     # interface
     print_same_line("Downloaded {} part details.".format(j))
+    print("Optimizing descriptions...")
+
     print("Saving to {}...".format(file_out))
 
     # write to file
