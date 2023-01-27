@@ -42,7 +42,7 @@ def get_table_row(table_obj, offset=0):
 def get_part_descriptions(table_obj):
     # gets a list of up to three descriptions of the part (in case one of them is for the wrong part)
     res = []
-    for i in range(0, 3):
+    for i in range(0, 4):
         row = get_table_row(table_obj, i)
         res.append(clean_text(row.find_all_next("td")[3].get_text().split("\n")[0]))
     return res

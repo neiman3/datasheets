@@ -16,6 +16,7 @@ def clean_text(string):
     string = string.replace("\t", "")
     string = string.replace("\xc2\xa0", " ")
     string = string.replace("\xa0", " ")
+    string = string.replace("[Old version datasheet]", "")
 
     # remove duplicate spaces
     space_flag = False
@@ -79,9 +80,13 @@ def pick_best_description(part_name, list_of_descriptions):
             print("Two dissimilar descriptions exist for the part {}:".format(part_name))
             print("\t1) {}".format(cleaned_list[0]))
             print("\t2) {}".format(cleaned_list[1]))
-            user_input = input("\tPlease select one [1,2] > ")
-            if user_input.isnumeric() and (1 <= int(user_input) <= 2):
-                return cleaned_list[int(user_input)-1]
+            print("\t3) Enter a custom description")
+            user_input = input("\tPlease select one [1,2,3] > ")
+            if user_input.isnumeric():
+                if (1 <= int(user_input) <= 2):
+                    return cleaned_list[int(user_input)-1]
+                else:
+                    return input("\tPlease enter a custom description >")
             else:
                 return [i for i in descriptions.items()][0][0]
     return find_highest_value(descriptions)
