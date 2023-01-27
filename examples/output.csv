@@ -1,20 +1,20 @@
-﻿lm741,https://pdf1.alldatasheet.com/datasheet-pdf/view/198081/SEOUL/LM741.html, Single Operational Amplifier
-CD4001BE,https://pdf1.alldatasheet.com/datasheet-pdf/view/113445/TI/CD4001BE.html, CMOS NOR Gates
-CD4007UBE,https://pdf1.alldatasheet.com/datasheet-pdf/view/26836/TI/CD4007UBE.html, CMOS DUAL COMPLEMENTARY PAIR PLUS INVERTER
-CD4069UBE,https://pdf1.alldatasheet.com/datasheet-pdf/view/26885/TI/CD4069UBE.html, CMOS HEX IVVERTER
-CD4016BE,https://pdf1.alldatasheet.com/datasheet-pdf/view/26852/TI/CD4016BE.html, CMOS QUAD BILATERAL SWITCH
-SN74LS00N,https://pdf1.alldatasheet.com/datasheet-pdf/view/5632/MOTOROLA/SN74LS00N.html, QUAD 2-INPUT NAND GATE
-74LS01,https://pdf1.alldatasheet.com/datasheet-pdf/view/5635/MOTOROLA/74LS01.html, QUAD 2-INPUT NAND GATE
-CA3086N,https://pdf1.alldatasheet.com/datasheet-pdf/view/66318/INTERSIL/CA3086.html, General Purpose NPN Transistor Array
-LM13700N,https://pdf1.alldatasheet.com/datasheet-pdf/view/549477/TI1/LM13700N.html, LM13700 Dual Operational Transconductance Amplifiers with Linearizing Diodes and Buffers
-ECG257,https://pdf1.alldatasheet.com/datasheet-pdf/view/153776/ETC1/ECG2377.html, Power MOSFETS
-TIP48,https://pdf1.alldatasheet.com/datasheet-pdf/view/2785/MOSPEC/TIP48.html, POWER TRANSISTORS NPN SILICON
-2N2222,https://pdf1.alldatasheet.com/datasheet-pdf/view/15067/PHILIPS/2N2222.html, HIGH-SPEED SWITCHES
-2N3904,https://pdf1.alldatasheet.com/datasheet-pdf/view/11470/ONSEMI/2N3904.html, EPITAXIAL PLANAR NPN TRANSISTOR
-BC547,https://pdf1.alldatasheet.com/datasheet-pdf/view/586720/FAIRCHILD/BC547.html, Switching and Amplifier
-NTE123A,https://pdf1.alldatasheet.com/datasheet-pdf/view/9436/NTE/NTE123A.html, Silicon Complementary Transistors General Purpose
-2N3906,https://pdf1.alldatasheet.com/datasheet-pdf/view/453220/UTC/2N3906.html, General Purpose Transistors(PNP Silicon)
-S9012,https://pdf1.alldatasheet.com/datasheet-pdf/view/82137/ETC/S9012.html, PNP Silicon General Purpose Transistor
-2N3799,https://pdf1.alldatasheet.com/datasheet-pdf/view/41786/SEME-LAB/2N3799.html, PNP SILICON ANNULAR TRANSISTORS
-J113,https://pdf1.alldatasheet.com/datasheet-pdf/view/17824/PHILIPS/J113.html, N-Channel Switch
-S8050/D331,https://pdf1.alldatasheet.com/datasheet-pdf/view/33773/WINGS/S8050.html, TRANSISTOR
+﻿#lm741,"=HYPERLINK(""https://pdf1.alldatasheet.com/datasheet-pdf/view/198081/SEOUL/LM741.html"",""DATASHEET"")", Single Operational Amplifier
+CD4001BE,"=HYPERLINK(""https://pdf1.alldatasheet.com/datasheet-pdf/view/113445/TI/CD4001BE.html"",""DATASHEET"")", CMOS NOR Gates
+CD4007UBE,"=HYPERLINK(""https://pdf1.alldatasheet.com/datasheet-pdf/view/26836/TI/CD4007UBE.html"",""DATASHEET"")", CMOS DUAL COMPLEMENTARY PAIR PLUS INVERTER
+CD4069UBE,"=HYPERLINK(""https://pdf1.alldatasheet.com/datasheet-pdf/view/26885/TI/CD4069UBE.html"",""DATASHEET"")", CMOS HEX IVVERTER
+CD4016BE,"=HYPERLINK(""https://pdf1.alldatasheet.com/datasheet-pdf/view/26852/TI/CD4016BE.html"",""DATASHEET"")", CMOS QUAD BILATERAL SWITCH
+SN74LS00N,"=HYPERLINK(""https://pdf1.alldatasheet.com/datasheet-pdf/view/5632/MOTOROLA/SN74LS00N.html"",""DATASHEET"")", QUAD 2-INPUT NAND GATE
+74LS01,"=HYPERLINK(""https://pdf1.alldatasheet.com/datasheet-pdf/view/5635/MOTOROLA/74LS01.html"",""DATASHEET"")", QUAD 2-INPUT NAND GATE
+CA3086N,"=HYPERLINK(""https://pdf1.alldatasheet.com/datasheet-pdf/view/66318/INTERSIL/CA3086.html"",""DATASHEET"")", General Purpose NPN Transistor Array
+LM13700N,"=HYPERLINK(""https://pdf1.alldatasheet.com/datasheet-pdf/view/549477/TI1/LM13700N.html"",""DATASHEET"")", LM13700 Dual Operational Transconductance Amplifiers with Linearizing Diodes and Buffers
+ECG257,"=HYPERLINK(""https://pdf1.alldatasheet.com/datasheet-pdf/view/153776/ETC1/ECG2377.html"",""DATASHEET"")", Power MOSFETS
+TIP48,"=HYPERLINK(""https://pdf1.alldatasheet.com/datasheet-pdf/view/2785/MOSPEC/TIP48.html"",""DATASHEET"")", POWER TRANSISTORS NPN SILICON
+2N2222,"=HYPERLINK(""https://pdf1.alldatasheet.com/datasheet-pdf/view/15067/PHILIPS/2N2222.html"",""DATASHEET"")", HIGH-SPEED SWITCHES
+2N3904,"=HYPERLINK(""https://pdf1.alldatasheet.com/datasheet-pdf/view/11470/ONSEMI/2N3904.html"",""DATASHEET"")", EPITAXIAL PLANAR NPN TRANSISTOR
+BC547,"=HYPERLINK(""https://pdf1.alldatasheet.com/datasheet-pdf/view/11551/ONSEMI/BC547.html"",""DATASHEET"")", Amplifier Transistors
+NTE123A,"=HYPERLINK(""https://pdf1.alldatasheet.com/datasheet-pdf/view/9436/NTE/NTE123A.html"",""DATASHEET"")", Silicon Complementary Transistors General Purpose
+2N3906,"=HYPERLINK(""https://pdf1.alldatasheet.com/datasheet-pdf/view/11471/ONSEMI/2N3906.html"",""DATASHEET"")", General Purpose Transistors(PNP Silicon)
+S9012,"=HYPERLINK(""https://pdf1.alldatasheet.com/datasheet-pdf/view/82137/ETC/S9012.html"",""DATASHEET"")", PNP Silicon General Purpose Transistor
+2N3799,"=HYPERLINK(""https://pdf1.alldatasheet.com/datasheet-pdf/view/41786/SEME-LAB/2N3799.html"",""DATASHEET"")", PNP SILICON ANNULAR TRANSISTORS
+J113,"=HYPERLINK(""https://pdf1.alldatasheet.com/datasheet-pdf/view/17824/PHILIPS/J113.html"",""DATASHEET"")", N-Channel Switch
+S8050/D331,"=HYPERLINK(""https://pdf1.alldatasheet.com/datasheet-pdf/view/33773/WINGS/S8050.html"",""DATASHEET"")", TRANSISTOR

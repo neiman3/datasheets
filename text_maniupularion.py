@@ -17,6 +17,7 @@ def clean_text(string):
     string = string.replace("\xc2\xa0", " ")
     string = string.replace("\xa0", " ")
     string = string.replace("[Old version datasheet]", "")
+    string = string.replace(" Search Partnumber :","")
 
     # remove duplicate spaces
     space_flag = False
@@ -29,6 +30,9 @@ def clean_text(string):
         else:
             res2 += c
             space_flag = False
+
+    if res2.isspace():
+        return ""
 
     return res2
 
