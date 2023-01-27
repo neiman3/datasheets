@@ -34,7 +34,6 @@ if __name__ == "__main__":
 
     # interface
     print_same_line("Downloaded {} part details.".format(j))
-    print("Optimizing descriptions...")
 
     print("Saving to {}...".format(file_out))
 
