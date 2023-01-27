@@ -12,12 +12,13 @@ def remove_newline_characters(string):
 
 def clean_text(string):
     # remove line breaks, tabs, and NBSPs
+    string = string.replace("[Old version datasheet]", "")
+    string = string.replace("Search Partnumber :", "")
     string = string.replace("\n", "")
     string = string.replace("\t", "")
     string = string.replace("\xc2\xa0", " ")
     string = string.replace("\xa0", " ")
-    string = string.replace("[Old version datasheet]", "")
-    string = string.replace(" Search Partnumber :","")
+
 
     # remove duplicate spaces
     space_flag = False
@@ -31,9 +32,14 @@ def clean_text(string):
             res2 += c
             space_flag = False
 
+    # if the first character is a space, remove it
+    if res2 != "" and res2[0].isspace():
+        res2 = res2[1:]
+
+    # if it's all spaces, return empty
     if res2.isspace():
         return ""
-
+    # and return
     return res2
 
 
@@ -81,7 +87,7 @@ def pick_best_description(part_name, list_of_descriptions):
         # Edge case where we have only two options
         if [i for i in descriptions.items()][0][1] < 0.25:
             # they are not similar enough
-            print_same_line("Two dissimilar descriptions exist for the part {}:".format(part_name))
+            print_same_line("Two dissimilar descriptions exist for the part {}:".format(clean_text(part_name)))
             print("\t1) {}".format(cleaned_list[0]))
             print("\t2) {}".format(cleaned_list[1]))
             print("\t3) Enter a custom description")

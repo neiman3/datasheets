@@ -1,7 +1,7 @@
 ﻿# LM741
 # These comments will be ignored- but not by excel (only this program)
 # This is an example input file
-Q4006F41
+CD4001BE
 CD4007UBE
 CD4069UBE
 CD4016BE
@@ -20,3 +20,4 @@ S9012
 2N3799
 J113
 S8050/D331
+Q4006F41
