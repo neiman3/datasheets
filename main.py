@@ -30,7 +30,7 @@ if __name__ == "__main__":
         # Make a CSV formatted line with the format:
         # [part number], [url], [description 1], [description 2], [description 3]
         description = pick_best_description(part, descriptions)
-        res.append(",".join([clean_text(part), url, description]))
+        res.append(",".join([clean_text(part), ("=HYPERLINK(\"" + url + "\", \"datasheet\""), description]))
 
     # interface
     print_same_line("Downloaded {} part details.".format(j))
