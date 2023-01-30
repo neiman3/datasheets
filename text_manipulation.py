@@ -87,16 +87,19 @@ def pick_best_description(part_name, list_of_descriptions):
         # Edge case where we have only two options
         if [i for i in descriptions.items()][0][1] < 0.25:
             # they are not similar enough
-            print_same_line("Two dissimilar descriptions exist for the part {}:".format(clean_text(part_name)))
-            print("\t1) {}".format(cleaned_list[0]))
-            print("\t2) {}".format(cleaned_list[1]))
+            print_same_line("\aTwo dissimilar descriptions exist for the part {}:".format(clean_text(part_name)))
+            print("\t1) \"{}\"".format(cleaned_list[0]))
+            print("\t2) \"{}\"".format(cleaned_list[1]))
             print("\t3) Enter a custom description")
-            user_input = input("\tPlease select one [1,2,3] > ")
-            if user_input.isnumeric():
-                if (1 <= int(user_input) <= 2):
-                    return cleaned_list[int(user_input)-1]
-                else:
-                    return input("\tPlease enter a custom description >")
+            print("\t4) Mark for review")
+            user_input = input("\tPlease select one [1,2,3,4] > ")
+
+            if user_input.isnumeric() and (1 <= int(user_input) <= 2):
+                return cleaned_list[int(user_input)-1]
+            elif user_input == '3':
+                return clean_text(input("\tPlease enter a custom description >"))
+            elif user_input == '4':
+                return None
             else:
                 return [i for i in descriptions.items()][0][0]
     return find_highest_value(descriptions)

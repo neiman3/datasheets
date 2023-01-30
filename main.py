@@ -18,8 +18,13 @@ if __name__ == "__main__":
     # look up each part
     res = []
     for i in range(len(parts)):
+        hyperlink_text = "datasheet"
         part = parts[i]
-        print_same_line("Downloading data from AllDatasheet ({}/{}, {} remaining)".format(i+1,j,estimated_time_completion(i,j,avg_time=1)))
+        print_same_line(
+            "Downloading data from AllDatasheet ({}/{}, {} remaining)".format(i + 1, j,
+                                                                              estimated_time_completion(i,
+                                                                                                        j,
+                                                                                                        avg_time=1)))
         # make the request and get the HTML content
         html = get_html_from_alldatasheet(part)
         # Parse the results table from the DOM
@@ -30,7 +35,11 @@ if __name__ == "__main__":
         # Make a CSV formatted line with the format:
         # [part number], [url], [description 1], [description 2], [description 3]
         description = pick_best_description(part, descriptions)
-        res.append(",".join([clean_text(part), '"=HYPERLINK(""{}"",""DATASHEET"")"'.format(url), description]))
+        if description is None:
+            description = "** Please review **"
+            hyperlink_text = "REVIEW"
+        res.append(
+            ",".join([clean_text(part), '"=HYPERLINK(""{}"",""{}"")"'.format(url, hyperlink_text), '"{}"'.format(description)]))
 
     # interface
     print_same_line("Downloaded {} part details.".format(j))
