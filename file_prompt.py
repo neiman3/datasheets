@@ -2,9 +2,9 @@ import os.path
 
 def filenames():
     # returns open file, save to file
-    file_in = prompt_entry("Open CSV file: > ")
-    dir_in = prompt_entry("Save to directory: > ", mode='folder')
-    save_as = input("Save as: > ")
+    file_in = prompt_entry("Open CSV file (full path): > ")
+    dir_in = prompt_entry("Save to directory (full path): > ", mode='folder')
+    save_as = input("Save as (file name only): > ")
     save_as = os.path.join(dir_in, save_as)
     return file_in, save_as
 

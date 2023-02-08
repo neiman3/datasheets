@@ -1,14 +1,18 @@
 from datasheets import *
 from file_prompt import filenames
 from text_manipulation import *
+from unidecode import unidecode
 
 if __name__ == "__main__":
     # prompt user for CSV file names- one to read from and one to write to. Can be
+    print("Welcome to the datasheet tool.")
     (file_in, file_out) = filenames()
     print("\nIf AllDatasheet doesn't return a great match, the script will ask you to review them one at a time during "
           "the search. You may choose to automatically mark these for review instead. You can fix those items in the "
           "spreadsheet after it finishes exporting.")
-    automatic_mark_for_review = prompt_yes_no("Automatically mark bad items for review? [n]/y",False)
+    automatic_mark_for_review = prompt_yes_no("Automatically mark bad items for review?",False)
+    print("\nYou can use the regular UTF-8 character set or limit results to ASCII characters only.")
+    utf8_characters_allowed = prompt_yes_no("Use standard UTF-8 character set?",True)
 
 
     # parse the file to get a list of parts
@@ -52,9 +56,11 @@ if __name__ == "__main__":
     print("Saving to {}...".format(file_out))
 
     # write to file
-    f = open(file_out, 'w')
-    for line in res:
-        f.write(line)
-        f.write("\n")
-    f.close()
+    with open(file_out, 'w', encoding='utf-8') as f:
+        for line in res:
+            if utf8_characters_allowed:
+                f.write(line)
+            else:
+                f.write(unidecode(line))
+            f.write("\n")
     print("Saved file.")
