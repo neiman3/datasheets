@@ -5,6 +5,11 @@ from text_manipulation import *
 if __name__ == "__main__":
     # prompt user for CSV file names- one to read from and one to write to. Can be
     (file_in, file_out) = filenames()
+    print("\nIf AllDatasheet doesn't return a great match, the script will ask you to review them one at a time during "
+          "the search. You may choose to automatically mark these for review instead. You can fix those items in the "
+          "spreadsheet after it finishes exporting.")
+    automatic_mark_for_review = prompt_yes_no("Automatically mark bad items for review? [n]/y",False)
+
 
     # parse the file to get a list of parts
     print("\nLoading your file...")
@@ -34,7 +39,7 @@ if __name__ == "__main__":
         url = get_datasheet_link(main_table)
         # Make a CSV formatted line with the format:
         # [part number], [url], [description 1], [description 2], [description 3]
-        description = pick_best_description(part, descriptions)
+        description = pick_best_description(part, descriptions, automatic_mark_for_review)
         if description is None:
             description = "** Please review **"
             hyperlink_text = "REVIEW"

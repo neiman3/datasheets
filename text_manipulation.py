@@ -68,7 +68,7 @@ def print_same_line(text=""):
     return
 
 
-def pick_best_description(part_name, list_of_descriptions):
+def pick_best_description(part_name, list_of_descriptions, automatic_mark_for_review):
     cleaned_list = []
     descriptions = {}
     for item in list_of_descriptions:
@@ -85,6 +85,9 @@ def pick_best_description(part_name, list_of_descriptions):
         descriptions[cleaned_list[i]] = score
     if len(cleaned_list) == 2:
         # Edge case where we have only two options
+        if automatic_mark_for_review:
+            return None
+
         if [i for i in descriptions.items()][0][1] < 0.25:
             # they are not similar enough
             print_same_line("\aTwo dissimilar descriptions exist for the part {}:".format(clean_text(part_name)))
@@ -130,3 +133,21 @@ def compare_two_strings(string_1, string_2):
 
 def remove_ufeff(line):
     return "".join([(c if c != '\ufeff' else '') for c in line])
+
+
+def prompt_yes_no(text=None, default_option=False, num_tries=0, ):
+    if num_tries > 5:
+        print("Max entries exceeded. Returning 'no'")
+        return default_option
+    if text is None:
+        add = ""
+    else:
+        add = str(text) + " "
+    user_input = input("{}[y/n]".format(add)).lower()
+    if user_input == "":
+        return default_option
+    if user_input in ['y','yes','1']:
+        return True
+    if user_input in ['n','no','0']:
+        return False
+    return prompt_yes_no(text,num_tries+1)

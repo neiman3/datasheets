@@ -29,3 +29,4 @@ def prompt_entry(prompt='> ', mode='file', msg=None, count=0):
             return filename
         else:
             return prompt_entry(prompt, mode, "Error: directory does not exist", count + 1)
+
