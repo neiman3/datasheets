@@ -33,7 +33,7 @@ if __name__ == "__main__":
 
     # prompt user for CSV file names- one to read from and one to write to.
     print("Welcome to the datasheet tool.")
-    (file_in, file_out) = filenames(testing=True)
+    (file_in, file_out) = filenames(testing=False)
 
     # parse the file to get a list of parts
     print("\nLoading your file...")
@@ -72,7 +72,7 @@ if __name__ == "__main__":
                                                                                                       j,
                                                                                                       avg_time=0.5)))
                 hyperlink = '=HYPERLINK("{}","{}")'.format(unshorten_url(each['url']), "DATASHEET LINK")
-                if len(hyperlink > 255):
+                if len(hyperlink) > 255:
                     hyperlink = unshorten_url(each['url'])
                 writer.writerow([each['mpn'], each['genericMpn'], each['category'], each['shortDescription'], hyperlink])
         print("Saved file {:,} parts to file '{}'.".format(j, file_out))
