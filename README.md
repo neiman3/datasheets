@@ -1,5 +1,5 @@
 # datasheets python script
-This script can import a CSV file or text file of part numbers and find their datasheets and descriptions from [AllDatasheet](https://www.alldatasheet.com).
+This script can import a CSV file or text file of part numbers and find their datasheets and descriptions from Octopart.
 
 ## Introduction
 This script uses AllDatasheet because it is very easy to scrape.
@@ -32,11 +32,15 @@ Installation instructions
 4. Run `source ./venv/bin/activate` in bash or `.\venv\Scripts\activate` on Windows to activate the python venv
 5. Run `python3 -m pip install -r ./requirements.txt` to install necessary packages
 
+## API Setup
+It's super easy to get your own API key. Just go to the Nexar / Octopart API page and create a free account. Once you have your API auth, you can run the script. The program will prompt you for your client ID and secret. It stores it in a text file for next time.
+
 
 ## Usage
 1. Activate like you did for the installation by running  `source ./venv/bin/activate` in bash or `.\venv\Scripts\activate` on Windows
 2. Run `python3 main.py` from the command line
 3. Enter the following:
+   - API key (enter at first run)
    - Path to your TXT or CSV file containing parts list only (one per row): `/Users/foo/partslist.txt`
    - Folder to save data: `/Users/foo/my_datasheets`
    - Filename: `Inventory.csv`
