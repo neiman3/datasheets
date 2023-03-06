@@ -83,20 +83,20 @@ def clean_result(dirty_result, part):
             'name': 'NONE',
             'manufacturer': None,
             'bestDatasheet': None,
-            'shortDescription': "NO DESCRIPTION"
+            'shortDescription': ""
         }
     else:
         result = dirty_result['supSearchMpn']['results'][0]['part']
     if result['category'] is None:
-        result['category'] = 'UNCATEGORIZED'
+        result['category'] = ''
     else:
         result['category'] = result['category']['name']
     if result['manufacturer'] is None:
-        result['manufacturer'] = 'NO MFG'
+        result['manufacturer'] = ''
     else:
         result['manufacturer'] = result['manufacturer']['name']
     if result['bestDatasheet'] is None:
-        result['url'] = 'NO DATASHEET'
+        result['url'] = ''
     else:
         result['url'] = result['bestDatasheet']['url']
     result.pop('bestDatasheet')
