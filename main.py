@@ -33,7 +33,7 @@ if __name__ == "__main__":
 
     # prompt user for CSV file names- one to read from and one to write to.
     print("Welcome to the datasheet tool.")
-    (file_in, file_out) = filenames(testing=True)
+    (file_in, file_out) = filenames(testing=False)
 
     # parse the file to get a list of parts
     print("\nLoading your file...")
