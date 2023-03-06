@@ -1,11 +1,15 @@
 import os.path
-from bs4 import BeautifulSoup
-import urllib.parse
+import json
 import requests
 import time
-
 from text_manipulation import clean_text, remove_ufeff
 
+
+def unshorten_url(url):
+    try:
+        return requests.head(url, allow_redirects=True).url
+    except requests.exceptions.MissingSchema:
+        return url
 
 def get_part_numbers_from_csv(filename):
     if os.path.exists(filename):
@@ -21,40 +25,80 @@ def get_part_numbers_from_csv(filename):
     else:
         return None
 
+# def query(part_number):
+#     query_text = """query {
+#     characters {
+#     results {
+#     name
+#     status
+#     species
+#     type
+#     gender
+#     }
+#     }
+#     }"""
+#     url = 'https://rickandmortyapi.com/graphql/'
+#     r = requests.post(url, json={'query': query_text})
+#     time.sleep(1)
+#     response = json.loads(r.text)
+#     return response
 
-def get_html_from_alldatasheet(search_term):
-    r = requests.get("https://www.alldatasheet.com/view.jsp?Searchword={}".format(urllib.parse.quote(search_term)))
-    if r.status_code != 200:
-        raise RuntimeError
-    time.sleep(0.8)
-    return r.content
+def query(client, part):
+    base_query = '''
+    query test($mpn: String!) {
+        supSearchMpn(
+            q: $mpn
+            limit: 1
+        ) {
+            results{
+                part {
+                    mpn
+                    genericMpn
+                    category {
+                        name
+                    }
+                    manufacturer {
+                        name
+                    }
+                    bestDatasheet {
+                        url
+                    }
+                    shortDescription
+                }
+            }
+        }
+    }
+    '''
 
+    result = client.get_query(base_query, {'mpn': part})
+    return result
 
-def extract_main_table(bs_obj):
-    # get first table with the class of main
-    return bs_obj.find_all("table", {"class": "main"})[5]
-
-
-def get_table_row(table_obj, offset=0):
-    # returns the table row
-    return table_obj.find_all_next("tr")[1 + offset]
-
-
-def get_part_descriptions(table_obj):
-    # gets a list of up to three descriptions of the part (in case one of them is for the wrong part)
-    res = []
-    for i in range(0, 4):
-        row = get_table_row(table_obj, i)
-        res.append(clean_text(row.find_all_next("td")[3].get_text().split("\n")[0]))
-    return res
-
-
-def get_datasheet_link(table_obj):
-    row = get_table_row(table_obj)
-    return "https://pdf1.alldatasheet.com/datasheet-pdf/view/" + "/".join(
-        row.find_all_next("a")[0]['href'].split("/")[5:])
-
-
-def get_item_table(html):
-    soup = BeautifulSoup(html, "html.parser")
-    return extract_main_table(soup)
+def clean_result(dirty_result, part):
+    result: dict
+    if dirty_result['supSearchMpn']['results'] is None:
+        result = {
+            'mpn': part,
+            'genericMpn': part,
+            'category': None,
+            'name': 'NONE',
+            'manufacturer': None,
+            'bestDatasheet': None,
+            'shortDescription': "NO DESCRIPTION"
+        }
+    else:
+        result = dirty_result['supSearchMpn']['results'][0]['part']
+    if result['category'] is None:
+        result['category'] = 'UNCATEGORIZED'
+    else:
+        result['category'] = result['category']['name']
+    if result['manufacturer'] is None:
+        result['manufacturer'] = 'NO MFG'
+    else:
+        result['manufacturer'] = result['manufacturer']['name']
+    if result['bestDatasheet'] is None:
+        result['url'] = 'NO DATASHEET'
+    else:
+        result['url'] = result['bestDatasheet']['url']
+    result.pop('bestDatasheet')
+    result['mpn'] = part
+    return result
