@@ -22,6 +22,9 @@ def prompt_entry(prompt='> ', mode='file', msg=None, count=0):
     if msg is not None:
         print(msg)
     filename = input(prompt)
+    if filename[0]== "\"" and filename[-1]== "\"":
+        # remove quotes
+        filename = filename[1:-1]
     if mode == 'file':
         if os.path.isfile(filename):
             return filename
