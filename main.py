@@ -2,18 +2,38 @@ from datasheets import *
 from file_prompt import filenames
 from text_manipulation import *
 from unidecode import unidecode
+from filemanip import extract_folder
+import os, csv
+from nexar import NexarClient
+
+
+def get_api_key(key_filename):
+    if not os.path.exists(key_filename):
+        print("""Warning: The API key file (\'apikey.txt\') does not exist.\nYou can create it now or manually exit the program.""")
+        client_id = input("Client ID > ")
+        secret_id = input("Secret ID > ")
+        keys = {"client": client_id, "secret": secret_id}
+        with open(key_filename, 'w') as file_obj:
+            json.dump(keys, file_obj, indent=4)
+    else:
+        with open(key_filename, 'r') as fp:
+            keys = json.load(fp)
+            # print("Loaded {} with secret {}".format(keys['client'], keys['secret']))
+            if not ("client" in keys and "secret" in keys):
+                print("Error: malformed API key")
+                raise RuntimeError
+    return keys
+
 
 if __name__ == "__main__":
-    # prompt user for CSV file names- one to read from and one to write to. Can be
-    print("Welcome to the datasheet tool.")
-    (file_in, file_out) = filenames()
-    print("\nIf AllDatasheet doesn't return a great match, the script will ask you to review them one at a time during "
-          "the search. You may choose to automatically mark these for review instead. You can fix those items in the "
-          "spreadsheet after it finishes exporting.")
-    automatic_mark_for_review = prompt_yes_no("Automatically mark bad items for review?",False)
-    print("\nYou can use the regular UTF-8 character set or limit results to ASCII characters only.")
-    utf8_characters_allowed = prompt_yes_no("Use standard UTF-8 character set?",True)
+    # auth first
+    root_dir = extract_folder()
+    filename = os.path.join(root_dir, 'apikey.txt')
+    apikey = get_api_key(filename)
 
+    # prompt user for CSV file names- one to read from and one to write to.
+    print("Welcome to the datasheet tool.")
+    (file_in, file_out) = filenames(testing=True)
 
     # parse the file to get a list of parts
     print("\nLoading your file...")
@@ -24,43 +44,36 @@ if __name__ == "__main__":
     print("Found {} parts in file.".format(j))
     print(" ")
 
-    # look up each part
-    res = []
+    # make the request and get the HTML content
+    client = NexarClient(apikey['client'], apikey['secret'])
+    results = []
+    j = len(parts)
     for i in range(len(parts)):
-        hyperlink_text = "datasheet"
         part = parts[i]
-        print_same_line(
-            "Downloading data from AllDatasheet ({}/{}, {} remaining)".format(i + 1, j,
+        print_same_line("Downloading data from Octopart ({:,}/{:,}, {} remaining)".format(i + 1, j,
                                                                               estimated_time_completion(i,
                                                                                                         j,
-                                                                                                        avg_time=1)))
-        # make the request and get the HTML content
-        html = get_html_from_alldatasheet(part)
-        # Parse the results table from the DOM
-        main_table = get_item_table(html)
-        # extract the data
-        descriptions = get_part_descriptions(main_table)
-        url = get_datasheet_link(main_table)
-        # Make a CSV formatted line with the format:
-        # [part number], [url], [description 1], [description 2], [description 3]
-        description = pick_best_description(part, descriptions, automatic_mark_for_review)
-        if description is None:
-            description = "** Please review **"
-            hyperlink_text = "REVIEW"
-        res.append(
-            ",".join([clean_text(part), '"=HYPERLINK(""{}"",""{}"")"'.format(url, hyperlink_text), '"{}"'.format(description)]))
-
-    # interface
-    print_same_line("Downloaded {} part details.".format(j))
-
-    print("Saving to {}...".format(file_out))
-
-    # write to file
-    with open(file_out, 'w', encoding='utf-8') as f:
-        for line in res:
-            if utf8_characters_allowed:
-                f.write(line)
-            else:
-                f.write(unidecode(line))
-            f.write("\n")
-    print("Saved file.")
+                                                                                                        avg_time=0.165)))
+        result = query(client, part)
+        results.append(clean_result(result, part))
+    if results is None:
+        # do nothing
+        print("No matches found.")
+    else:
+        print("Download complete.")
+        with open(file_out, "w", newline="") as output_file:
+            writer = csv.writer(output_file)
+            writer.writerow(["Part Number", "Generic Part Number", "Category", "Description", "Datasheet Link"])
+            for i in range(len(results)):
+                each = results[i]
+                print_same_line("Resolving links... ({:,}/{:,}, {} remaining)".format(i + 1, j,
+                                                                                                  estimated_time_completion(
+                                                                                                      i,
+                                                                                                      j,
+                                                                                                      avg_time=0.5)))
+                hyperlink = '=HYPERLINK("{}","{}")'.format(unshorten_url(each['url']), "DATASHEET LINK")
+                if len(hyperlink > 255):
+                    hyperlink = unshorten_url(each['url'])
+                writer.writerow([each['mpn'], each['genericMpn'], each['category'], each['shortDescription'], hyperlink])
+        print("Saved file {:,} parts to file '{}'.".format(j, file_out))
+        #     ",".join([clean_text(part), '"=HYPERLINK(""{}"",""{}"")"'.format(url, hyperlink_text), '"{}"'.format(description)]))

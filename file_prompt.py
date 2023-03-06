@@ -1,11 +1,16 @@
 import os.path
+from filemanip import extract_folder
 
-def filenames():
+def filenames(testing=False):
     # returns open file, save to file
-    file_in = prompt_entry("Open CSV file (full path): > ")
-    dir_in = prompt_entry("Save to directory (full path): > ", mode='folder')
-    save_as = input("Save as (file name only): > ")
-    save_as = os.path.join(dir_in, save_as)
+    if testing:
+        file_in = os.path.join(extract_folder(), 'test_in.csv')
+        save_as = os.path.join(extract_folder(), 'test_out.csv')
+    else:
+        file_in = prompt_entry("Open CSV file (full path): > ")
+        dir_in = prompt_entry("Save to directory (full path): > ", mode='folder')
+        save_as = input("Save as (file name only): > ")
+        save_as = os.path.join(dir_in, save_as)
     return file_in, save_as
 
 
